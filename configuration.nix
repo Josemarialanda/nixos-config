@@ -4,7 +4,40 @@
 
 { config, pkgs, ... }:
 
-{
+let
+  systemSync = pkgs.writeShellScriptBin "systemSync" ''
+   
+    DIR="/home/$USER/.nixos-config/"
+    
+    if [ -d "$DIR" ]; then
+      echo "Syncing system configuration files to git repo..."
+      cd /home/$USER/nixos-config/
+    else
+      echo "Setting up local git repository"
+      # git init
+      # git remote add origin https://github.com/Josemarialanda/nixos-config.git
+      git clone https://github.com/Josemarialanda/nixos-config.git
+      cd /home/$USER/nixos-config
+    fi;    
+    
+    echo "Please enter commit message"
+    read commitMsg
+    
+    # retrieve latest user configuration
+    cp /home/$USER/.config/nixpkgs/config.nix /home/$USER/nixos-config/
+    cp /home/$USER/.config/nixpkgs/home.nix /home/$USER/nixos-config/
+    
+    # retrieve latest system configuration
+    cp /etc/nixos/configuration.nix /home/$USER/nixos-config/
+
+    git add -A .
+    git commit -m "$commitMsg"
+    git branch -M main
+    git push https://josemarialanda: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@github.com/josemarialanda/nixos-config.git --all
+  '';
+
+in {
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -84,7 +117,8 @@
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-
+    git
+    systemSync
     # $ nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
     # $ nix-channel --update
     home-manager 

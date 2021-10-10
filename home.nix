@@ -80,15 +80,15 @@
   # Modules
   programs = {
 
-    git = {
-      enable = true;
-      userName = "josemaria";
-      userEmail = "josemaria.landa@gmail.com";
-    };
+  #  git = {
+  #    enable = true;
+  #    userName = "josemaria";
+  #    userEmail = "josemaria.landa@gmail.com";
+  #  };
 
     bat.enable = true;  # A better cat
     htop.enable = true; # System monitoring tool
-            
+    vscode.enable = true;            
   };
 
   # Xsession configuration
