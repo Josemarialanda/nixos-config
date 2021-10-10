@@ -10,31 +10,32 @@ let
     DIR="/home/$USER/nixos-config/"
     
     if [ -d "$DIR" ]; then
-      echo "Syncing system configuration files to git repo..."
+
       cd /home/$USER/nixos-config/
+
+      echo "Please enter commit message"
+      read commitMsg
+    
+      echo "Retrieving latest user configuration..."
+      cp /home/$USER/.config/nixpkgs/config.nix /home/$USER/nixos-config/
+      cp /home/$USER/.config/nixpkgs/home.nix /home/$USER/nixos-config/
+    
+      echo "Retrieving latest system configuration..."
+      cp /etc/nixos/configuration.nix /home/$USER/nixos-config/
+
+      git add -A .
+      git commit -m "$commitMsg"
+      git branch -M main
+      echo "Syncing system configuration..."
+      git push origin -all
+      # git push https://josemarialanda:<Personal Access Token>@github.com/josemarialanda/nixos-config.git --all
+
     else
-      echo "Setting up local git repository"
-      # git init
-      # git remote add origin https://github.com/Josemarialanda/nixos-config.git
+      echo "Cloning nixos-config..."
       git clone https://github.com/Josemarialanda/nixos-config.git
       cd /home/$USER/nixos-config
+      home-manager switch
     fi;    
-    
-    echo "Please enter commit message"
-    read commitMsg
-    
-    # retrieve latest user configuration
-    cp /home/$USER/.config/nixpkgs/config.nix /home/$USER/nixos-config/
-    cp /home/$USER/.config/nixpkgs/home.nix /home/$USER/nixos-config/
-    
-    # retrieve latest system configuration
-    cp /etc/nixos/configuration.nix /home/$USER/nixos-config/
-
-    git add -A .
-    git commit -m "$commitMsg"
-    git branch -M main
-    # git push https://josemarialanda:<Personal Access Token>@github.com/josemarialanda/nixos-config.git --all
-    git push origin --all
   '';
 
 in {
