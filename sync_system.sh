@@ -26,5 +26,5 @@ git add -A .
 git commit -m "$commitMsg"
 git branch -M main
 # git push -u origin main
-git push https://$github_username:$github_token@github.com/$github_username/nixos-config.git --all
+git push https://josemarialanda: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@github.com/josemarialanda/nixos-config.git --all
 
