@@ -34,6 +34,9 @@ let
       echo "Cloning nixos-config..."
       git clone https://github.com/Josemarialanda/nixos-config.git
       cd /home/$USER/nixos-config
+
+      cp ./config.nix /home/$USER/.config/nixpkgs/
+      cp ./home.nix /home/$USER/.config/nixpkgs/
       home-manager switch
     fi;    
   '';
