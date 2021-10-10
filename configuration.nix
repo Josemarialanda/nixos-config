@@ -7,7 +7,7 @@
 let
   systemSync = pkgs.writeShellScriptBin "systemSync" ''
    
-    DIR="/home/$USER/.nixos-config/"
+    DIR="/home/$USER/nixos-config/"
     
     if [ -d "$DIR" ]; then
       echo "Syncing system configuration files to git repo..."
@@ -33,7 +33,8 @@ let
     git add -A .
     git commit -m "$commitMsg"
     git branch -M main
-    git push https://josemarialanda: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@github.com/josemarialanda/nixos-config.git --all
+    # git push https://josemarialanda:<Personal Access Token>@github.com/josemarialanda/nixos-config.git --all
+    git push origin --all
   '';
 
 in {
