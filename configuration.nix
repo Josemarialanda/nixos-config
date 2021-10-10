@@ -27,7 +27,7 @@ let
       git commit -m "$commitMsg"
       git branch -M main
       echo "Syncing system configuration..."
-      git push origin -all
+      git push origin --all
       # git push https://josemarialanda:<Personal Access Token>@github.com/josemarialanda/nixos-config.git --all
 
     else
