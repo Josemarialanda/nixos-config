@@ -6,7 +6,7 @@ let
 	DIR="/home/$USER/nixos-config/"
 	gitconfig="/home/$USER/.gitconfig"
 	firstrun="/home/$USER/.firstrun"
-	version=1.0
+	version=21.05
 
 	# First run
 	if [ ! -f $firstrun ]; then
@@ -106,7 +106,7 @@ let
 				echo "Syncing system configuration..."
 				git push origin --all
 			  else
-				echo "To sync Nix OS run ./nixos-sync.sh"
+				echo "To sync Nix OS run nixos-sync"
 			  fi
 			else
 			  echo "Not yes or no"
