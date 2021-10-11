@@ -28,12 +28,21 @@ let
 
     else
       echo "Cloning nixos-config..."
+
+      git config --global user.name "josemarialanda"
+      git config user.email "josemaria.landa@gmail.com"
+
       git clone https://github.com/Josemarialanda/nixos-config.git
       cd /home/$USER/nixos-config
 
       cp ./config.nix /home/$USER/.config/nixpkgs/
       cp ./home.nix /home/$USER/.config/nixpkgs/
+      
+      # Setup home-manager
+      nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+      nix-channel --update
 
+      # Load user configuration
       home-manager switch
     fi;    
   '';
@@ -121,8 +130,6 @@ in {
   environment.systemPackages = with pkgs; [
     git
     systemSync
-    # $ nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
-    # $ nix-channel --update
     home-manager 
   ];
 
