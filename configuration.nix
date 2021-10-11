@@ -73,10 +73,10 @@ let
 			echo "3)	  nix-shell '<home-manager>' -A install"
 			echo "4)	  home-manager switch"
 		  elif [ $yesno = "yes" ]; then
-			echo "Have you setup a github repo (named nixos-config) to store the configuration files? [yes/no]"
+			echo "Have you setup a Github repo (named nixos-config) to store the configuration files? [yes/no]"
 			read yesno
 			if [ $yesno = "no" ]; then
-			  echo "First setup a girhub repo to store configuration files"
+			  echo "First setup a Github repo to store configuration files"
 			elif [ $yesno = "yes" ]; then
 			  echo "Enter the repo address: e.g: https://github.com/<github-username>/nixos-config.git"
 			  read repo_name
