@@ -43,6 +43,7 @@
     xclip
     tilix
     wget
+    bat
     stress-ng
     s-tui
     smartmontools
@@ -58,6 +59,7 @@
     llvm
     bison
     flex
+    vscode
 
     # Internet
     google-chrome
@@ -66,6 +68,7 @@
     # Media
     spotify
     simplescreenrecorder
+    viewnior
 
     # Office
     libreoffice-fresh
@@ -78,14 +81,10 @@
   ];
 
   # Modules
-  programs = {
-    bat.enable = true;  # A better cat
-    htop.enable = true; # System monitoring tool
-    vscode.enable = true;            
-  };
-
+  # programs = {};
+  # services = {};
   # Xsession configuration
-  xsession.enable = true;
+  # xsession.enable = true;
   
   home.stateVersion = "21.05"; 
 }

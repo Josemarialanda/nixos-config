@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 let
@@ -10,12 +6,11 @@ let
     DIR="/home/$USER/nixos-config/"
     
     if [ -d "$DIR" ]; then
-
       cd /home/$USER/nixos-config/
 
       echo "Please enter commit message"
       read commitMsg
-    
+
       echo "Retrieving latest user configuration..."
       cp /home/$USER/.config/nixpkgs/config.nix /home/$USER/nixos-config/
       cp /home/$USER/.config/nixpkgs/home.nix /home/$USER/nixos-config/
@@ -37,6 +32,7 @@ let
 
       cp ./config.nix /home/$USER/.config/nixpkgs/
       cp ./home.nix /home/$USER/.config/nixpkgs/
+
       home-manager switch
     fi;    
   '';
@@ -89,7 +85,7 @@ in {
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.displayManager.lightdm.enable = true; # gdm is broken =/
-  
+
   # Make sure Xserver uses the amdgpu driver.
   services.xserver.videoDrivers = [ "amdgpu" ]; 
 
@@ -132,7 +128,7 @@ in {
   # Enable and install Steam.
   programs.steam.enable = true; 
 
-  # Enable OpenSSH.
+    # Enable OpenSSH.
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
 
@@ -143,4 +139,3 @@ in {
 
   system.stateVersion = "21.05"; 
 }
-
