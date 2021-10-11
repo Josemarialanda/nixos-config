@@ -21,14 +21,17 @@ let
       git add -A .
       git commit -m "$commitMsg"
       git branch -M main
+
       # store credentials (username and password must be supplied only once)
-      git config credential.helper store 
+      git config credential.helper store
+ 
       echo "Syncing system configuration..."
       git push origin --all
 
     else
       echo "Cloning nixos-config..."
 
+      # Setup git in case not already setup
       git config --global user.name "josemarialanda"
       git config user.email "josemaria.landa@gmail.com"
 
@@ -44,6 +47,8 @@ let
 
       # Load user configuration
       home-manager switch
+
+      echo "User configuration loaded"
     fi;    
   '';
 

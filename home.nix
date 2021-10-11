@@ -68,7 +68,7 @@
     # Media
     spotify
     simplescreenrecorder
-    viewnior
+    # viewnior
 
     # Office
     libreoffice-fresh
