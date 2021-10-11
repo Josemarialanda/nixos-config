@@ -8,7 +8,7 @@ let
     if [ -d "$DIR" ]; then
       cd /home/$USER/nixos-config/
 
-      echo "Please enter commit message"
+      echo "What changes have you made to Nix OS? (system or user)"
       read commitMsg
 
       echo "Retrieving latest user configuration..."
@@ -21,9 +21,10 @@ let
       git add -A .
       git commit -m "$commitMsg"
       git branch -M main
+      # store credentials (username and password must be supplied only once)
+      git config credential.helper store 
       echo "Syncing system configuration..."
       git push origin --all
-      # git push https://josemarialanda:<Personal Access Token>@github.com/josemarialanda/nixos-config.git --all
 
     else
       echo "Cloning nixos-config..."
