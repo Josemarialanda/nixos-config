@@ -13,6 +13,31 @@ sudo systemctl enable bluetooth
 sudo systemctl start bluetooth
 ```
 
+# Turn on bluetooth
+
+Turn the power to the controller on by entering "power on". It is off by default.
+
+```
+bluetoothctl power on
+```
+
+You can turn the power off by entering "power off"
+
+```
+bluetoothctl power off
+```
+
+Turn the agent on with "agent on".
+
+```
+bluetoothctl agent on
+bluetoothctl default-agent
+```
+
+This will automatically connect any trusted devices
+
+
+
 # Scanning for Nearby Devices
 
 ```
