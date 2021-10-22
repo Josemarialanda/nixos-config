@@ -165,8 +165,11 @@ in {
   # Setup desktop environment.
   services.xserver.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.displayManager.lightdm.enable = true; # gdm is broken =/
+  services.gvfs.enable = true;
+  programs.nm-applet.enable = true;
+  services.xserver.windowManager.openbox.enable = true;
+  services.xserver.displayManager.defaultSession = "none+openbox";
+  services.xserver.displayManager.lightdm.enable = true;
 
   # Make sure Xserver uses the amdgpu driver.
   services.xserver.videoDrivers = [ "amdgpu" ]; 
@@ -202,7 +205,8 @@ in {
   environment.systemPackages = with pkgs; [
     git
     nixos-sync
-    home-manager 
+    home-manager
+    etcher
   ];
 
   # Enable and install Steam.
