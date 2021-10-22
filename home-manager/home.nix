@@ -173,8 +173,11 @@
       refreshRate = 75;
     };
   };
-  # Xsession configuration
-  # xsession.enable = true;
+  
+  # Openbox configuration
+  home.file.".config/openbox/autostart".sources = ./autostart;
+  home.file.".config/openbox/menu.xml".sources  = ./menu.xml;
+  home.file.".config/openbox/rc.xml".sources    = ./rc.xml;
   
   home.stateVersion = "21.05"; 
 }
