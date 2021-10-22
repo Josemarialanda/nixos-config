@@ -1,0 +1,5 @@
+xrandr -s 2560x1080 -r 75 &
+nitrogen --restore &
+xsettingsd &
+pnmixer &
+tint2 &

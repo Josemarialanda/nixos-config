@@ -143,13 +143,13 @@
 
         <menu id="50" label="Screenshot">
             <item label="Take screenshot"> <action name="Execute">
-                <execute>scrot -q 100 ~/Pictures/Screenshots/ </execute>
+                <execute>scrot -q 100 ~/Pictures/Screenshots/screenshot.png </execute>
             </action> </item>
             <item label="Select window"> <action name="Execute">
-                <execute>scrot -q 100 -s -b ~/Pictures/Screenshots/</execute>
+                <execute>scrot -q 100 -s -b ~/Pictures/Screenshots/screenshot.png </execute>
             </action> </item>
             <item label="Select window (no border)"> <action name="Execute">
-                <execute>scrot -q 100 -s ~/Pictures/Screenshots/</execute>
+                <execute>scrot -q 100 -s ~/Pictures/Screenshots/screenshot.png </execute>
             </action> </item>
         </menu>
 

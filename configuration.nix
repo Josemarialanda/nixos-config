@@ -42,17 +42,26 @@
     keyMap = "es";
   };
 
-  # Setup desktop environment.
-  services.xserver.enable = true;
-  services.xserver.desktopManager.xterm.enable = false;
-  services.gvfs.enable = true;
-  services.xserver.windowManager.openbox.enable = true;
-  services.xserver.displayManager.defaultSession = "none+openbox";
-  services.xserver.displayManager.lightdm.enable = true; 
-  services.gnome.gnome-keyring.enable = true;
+  services.xserver = {
+    enable = true;
+    desktopManager.xterm.enable = false;
 
-  # Make sure Xserver uses the amdgpu driver.
-  services.xserver.videoDrivers = [ "amdgpu" ]; 
+    # Setup desktop enviorment
+    windowManager.openbox.enable = true;
+    displayManager.lightdm.enable = true;
+    displayManager.defaultSession = "none+openbox";
+   
+    # Make sure Xserver uses the amdgpu driver.
+    videoDrivers = [ "amdgpu" ];
+  }; 
+
+  # Enable some services needed to run a minimal window manager like openbox
+  services = {
+    # Enable GNOME Keyring daemon
+    gnome.gnome-keyring.enable = true;
+    # Enable GVfs, a userspace virtual filesystem
+    gvfs.enable = true;
+  };
 
   # Enable OpenCL
   hardware.opengl.extraPackages = with pkgs; [
@@ -71,9 +80,13 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound.
+  # Enable sound
   sound.enable = true;
   hardware.pulseaudio.enable = true;  
+
+  # Enable bluetooth
+  hardware.bluetooth.enable = true;
+  # services.blueman.enable = true;
 
   # User accounts
   users.users.jose = {

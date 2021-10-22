@@ -39,7 +39,7 @@
     (python3.withPackages pythonPackages) # Python
 
     # Tools
-    gparted
+    # gparted
     wget
     bat
     xclip
@@ -51,12 +51,11 @@
     ffmpeg
     xarchiver
     sakura
+    neofetch
 
     # Programming and editors
     gnumake
-    vscode
     gitg
-    notepadqq
     valgrind
     maven
     llvm
@@ -70,10 +69,12 @@
 
     # Media
     spotify
+    playerctl
     simplescreenrecorder
     vlc
     viewnior
     nitrogen
+    scrot
 
     # Office
     libreoffice-fresh
@@ -92,10 +93,11 @@
     pnmixer
     tint2
     xsettingsd
-    menumaker
     lxappearance
     obconf
     pavucontrol
+    bluez
+    bluez-tools
   ];
 
   #  Modules
@@ -111,6 +113,8 @@
     };
   };
   services = {
+    # gnome-keyring.enable = true;
+    # blueman-applet.enable = true;
     dunst = {
       enable = true;
 	settings = {
@@ -142,7 +146,7 @@
 		    padding = 32;
 		    horizontal_padding = 32;
 		    separator_color = "frame";
-		    startup_notification = true;
+		    startup_notification = false;
         icon_position = "off";
         max_icon_size = 80;
         frame_width = 2;
