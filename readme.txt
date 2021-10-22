@@ -1,4 +1,6 @@
-place the contents of home-manager in .config/nixpkgs/
+place config.nix in                   .config/nixpkgs/
+place home.nix in                     .config/nixpkgs/
+place openbox in                      .config/nixpkgs/
 place openbox in                      .config/nixpkgs/
 place tint2 in                        .config/nixpkgs/
 

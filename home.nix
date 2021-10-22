@@ -42,6 +42,7 @@
     gparted
     wget
     bat
+    xclip
     stress-ng
     s-tui
     mprime
@@ -88,7 +89,6 @@
     polkit_gnome
     pcmanfm
     libmtp
-    clipit
     pnmixer
     tint2
     xsettingsd
@@ -100,6 +100,11 @@
 
   #  Modules
   programs = {
+    git = {
+      enable = true;
+      userName = "josemarialanda";
+      userEmail = "josemaria.landa@gmail.com";
+    };
     rofi = {
       enable = true;
       # other config   
@@ -175,9 +180,11 @@
   };
   
   # Openbox configuration
-  home.file.".config/openbox/autostart".sources = ./autostart;
-  home.file.".config/openbox/menu.xml".sources  = ./menu.xml;
-  home.file.".config/openbox/rc.xml".sources    = ./rc.xml;
+  home.file.".config/openbox/autostart".source = ./openbox/autostart;
+  home.file.".config/openbox/menu.xml".source  = ./openbox/menu.xml;
+  home.file.".config/openbox/rc.xml".source    = ./openbox/rc.xml;
+  # Tint2 configuration
+  home.file.".config/tint2/tint2rc".source     = ./tint2/tint2rc;
   
   home.stateVersion = "21.05"; 
 }
