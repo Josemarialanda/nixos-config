@@ -46,22 +46,36 @@
     enable = true;
     desktopManager.xterm.enable = false;
 
-    # Setup desktop enviorment
+    # Setup window manager
     windowManager.openbox.enable = true;
-    displayManager.lightdm.enable = true;
-    displayManager.defaultSession = "none+openbox";
+
+    # Setup display manager
+    displayManager = {
+       defaultSession = "none+openbox";
+       lightdm.greeters.mini = {
+        enable = true;
+        user = "jose";
+        extraConfig = ''
+          [greeter]
+          show-password-label = true
+          [greeter-theme]
+          background-image = ""
+          '';
+      };
+    };
    
     # Make sure Xserver uses the amdgpu driver.
     videoDrivers = [ "amdgpu" ];
   }; 
 
-  # Enable some services needed to run a minimal window manager like openbox
+  # Enable some services and programs needed to run a minimal window manager like openbox
   services = {
     # Enable GNOME Keyring daemon
     gnome.gnome-keyring.enable = true;
     # Enable GVfs, a userspace virtual filesystem
     gvfs.enable = true;
   };
+  programs.dconf.enable = true;
 
   # Enable OpenCL
   hardware.opengl.extraPackages = with pkgs; [

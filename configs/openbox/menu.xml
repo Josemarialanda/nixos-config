@@ -3,9 +3,6 @@
     <menu id="root-menu" label="OpenBox 3">
         <menu id="0" label="Applications">
         <menu id="1" label="Development">
-            <item label="gitg"> <action name="Execute">
-                <execute>gitg</execute>
-            </action> </item>
             <item label="Jupyter Notebook"> <action name="Execute">
                 <execute>xterm -e jupyter-notebook</execute>
             </action> </item>
@@ -30,12 +27,6 @@
             </action> </item>
         </menu>
         <menu id="6" label="Graphics">
-            <item label="Inkscape"> <action name="Execute">
-                <execute>inkscape</execute>
-            </action> </item>
-            <item label="LibreOffice Draw"> <action name="Execute">
-                <execute>libreoffice --draw</execute>
-            </action> </item>
             <item label="Viewnior"> <action name="Execute">
                 <execute>viewnior</execute>
             </action> </item>
@@ -60,21 +51,6 @@
             </action> </item>
         </menu>
         <menu id="3" label="Office">
-            <item label="LibreOffice 7.1 Impress"> <action name="Execute">
-                <execute>libreoffice</execute>
-            </action> </item>
-            <item label="LibreOffice Calc"> <action name="Execute">
-                <execute>libreoffice --calc</execute>
-            </action> </item>
-            <item label="LibreOffice Impress"> <action name="Execute">
-                <execute>libreoffice --impress</execute>
-            </action> </item>
-            <item label="LibreOffice Math"> <action name="Execute">
-                <execute>libreoffice --math</execute>
-            </action> </item>
-            <item label="LibreOffice Writer"> <action name="Execute">
-                <execute>libreoffice --writer</execute>
-            </action> </item>
             <item label="LyX"> <action name="Execute">
                 <execute>lyx</execute>
             </action> </item>
@@ -84,17 +60,20 @@
             <item label="TeXstudio"> <action name="Execute">
                 <execute>texstudio</execute>
             </action> </item>
+            <item label="ePDFView"> <action name="Execute">
+                <execute>epdfview</execute>
+            </action> </item>
+            <item label="ReText"> <action name="Execute">
+                <execute>retext</execute>
+            </action> </item>
         </menu>
         <menu id="19" label="Shells">
-            <item label="Sakura"> <action name="Execute">
-                <execute>sakura</execute>
+            <item label="Kitty"> <action name="Execute">
+                <execute>kitty</execute>
             </action> </item>
         </menu>
         <menu id="37" label="System">
             <menu id="36" label="Settings">
-                <item label="Customize Look and Feel"> <action name="Execute">
-                    <execute>lxappearance</execute>
-                </action> </item>
                 <item label="Manage Printing"> <action name="Execute">
                     <execute>xdg-open http://localhost:631/</execute>
                 </action> </item>
@@ -123,7 +102,7 @@
         </menu>
         <separator />
         <item label="Terminal"> <action name="Execute">
-            <execute>sakura</execute>
+            <execute>kitty</execute>
         </action> </item>
         <item label="Code"> <action name="Execute">
             <execute>code</execute>
@@ -143,7 +122,7 @@
 
         <menu id="50" label="Screenshot">
             <item label="Take screenshot"> <action name="Execute">
-                <execute>scrot -q 100 ~/Pictures/Screenshots/screenshot.png </execute>
+                <execute>scrot -q 100 --delay 1 ~/Pictures/Screenshots/screenshot.png </execute>
             </action> </item>
             <item label="Select window"> <action name="Execute">
                 <execute>scrot -q 100 -s -b ~/Pictures/Screenshots/screenshot.png </execute>
@@ -153,12 +132,52 @@
             </action> </item>
         </menu>
 
+        <menu id="60" label="Volume">
+            <item label="Mixer"> <action name="Execute">
+                <execute>pavucontrol</execute>
+            </action> </item>
+            <item label="Mute"> <action name="Execute">
+                <execute>amixer set Master 0</execute>
+            </action> </item>
+            <item label="25%"> <action name="Execute">
+                <execute>amixer set Master 25%</execute>
+            </action> </item>
+            <item label="50%"> <action name="Execute">
+                <execute>amixer set Master 50%</execute>
+            </action> </item>
+            <item label="75%"> <action name="Execute">
+                <execute>amixer set Master 75%</execute>
+            </action> </item>
+            <item label="100%"> <action name="Execute">
+                <execute>amixer set Master 100%</execute>
+            </action> </item>
+            <item label="Increase 10%"> <action name="Execute">
+                <execute>amixer set Master 10%+</execute>
+            </action> </item>
+            <item label="Decrease 10%"> <action name="Execute">
+                <execute>amixer set Master 10%-</execute>
+            </action> </item>
+        </menu>
+
         <menu id="40" label="OpenBox">
             <menu id="client-list-menu"/>
+            <item label="Configure Openbox"> <action name="Execute">
+                <execute>obconf</execute>
+            </action> </item>
             <item label="Reconfigure"> <action name="Reconfigure"/> </item>
         </menu>
         <separator />
         <item label="Logout"> <action name="Exit"/> </item>
+        <item label="Suspend">
+            <action name="Execute">
+                <prompt>
+                        Are you sure you want to suspend?
+                </prompt>
+                <execute>
+                    systemctl suspend
+                </execute>
+            </action>
+        </item>
         <item label="Reboot">
             <action name="Execute">
                 <prompt>

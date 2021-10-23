@@ -50,12 +50,10 @@
     xorg.xkill
     ffmpeg
     xarchiver
-    sakura
     neofetch
 
     # Programming and editors
     gnumake
-    gitg
     valgrind
     maven
     llvm
@@ -77,28 +75,27 @@
     scrot
 
     # Office
-    libreoffice-fresh
     texstudio
     texlive.combined.scheme-full
     lyx
-    inkscape
-    pdfslicer
+    epdfview
     pandoc
+    retext
     leafpad
 
     # System
     polkit_gnome
     pcmanfm
     libmtp
-    pnmixer
     tint2
-    xsettingsd
-    lxappearance
     obconf
+    xsettingsd
     pavucontrol
     bluez
     bluez-tools
   ];
+
+  xdg.enable = true; 
 
   #  Modules
   programs = {
@@ -107,6 +104,68 @@
       userName = "josemarialanda";
       userEmail = "josemaria.landa@gmail.com";
     };
+    lazygit.enable = true;
+    kitty = {
+      enable = true;
+      environment = {};
+      extraConfig = ''
+
+        # UI
+        background_opacity 0.8
+        
+        # Cursor
+        cursor_text_color #FF0000
+        cursor_stop_blinking_after 10.0
+        
+        # Scrollback
+        scrollback_lines 500
+        
+        # Mouse
+        mouse_hide_wait 10.0
+        url_color #30e310
+        url_prefixes http https ftp mailto news git www
+        url_style curly
+        copy_on_select yes
+
+        # Tab bar
+        tab_bar_edge top
+        tab_bar_style powerline
+        tab_powerline_style slanted
+        tab_activity_symbol 🔥🔥🔥
+        
+        # Color scheme
+        # Dracula theme
+	background #1e1f28
+	foreground #f8f8f2
+	cursor #bbbbbb
+	selection_background #44475a
+	color0 #000000
+	color8 #545454
+	color1 #ff5555
+	color9 #ff5454
+	color2 #50fa7b
+	color10 #50fa7b
+	color3 #f0fa8b
+	color11 #f0fa8b
+	color4 #bd92f8
+	color12 #bd92f8
+	color5 #ff78c5
+	color13 #ff78c5
+	color6 #8ae9fc
+	color14 #8ae9fc
+	color7 #bbbbbb
+	color15 #ffffff
+	selection_foreground #1e1f28
+
+      '';
+      font = {
+        name = "Source Code Pro";
+        size = 14;
+        package = pkgs.source-code-pro;
+      };
+      keybindings = {    
+      };
+    };
     rofi = {
       enable = true;
       # other config   
@@ -114,7 +173,7 @@
   };
   services = {
     # gnome-keyring.enable = true;
-    # blueman-applet.enable = true;
+    # gpg-agent.enable = true;
     dunst = {
       enable = true;
 	settings = {
@@ -180,6 +239,37 @@
       vSync = true;
       experimentalBackends = true;
       refreshRate = 75;
+      extraOptions = ''
+        use-damage = true;
+      '';
+    };
+  };
+
+
+  fonts.fontconfig.enable = true;
+  gtk = {
+    enable = true;
+    font = {
+      name = "DejaVu Sans";
+      size = 12;
+      package = pkgs.pkgs.dejavu_fonts;
+    };
+    iconTheme = {
+      name = "Faba";
+      package = pkgs.faba-icon-theme;
+    };
+    theme = {
+      name = "Lounge-night";
+      package = pkgs.lounge-gtk-theme;
+    };
+  };
+
+  xsession = {
+    enable = true;
+    pointerCursor = {
+      name = "capitaine-cursors";
+      package = pkgs.capitaine-cursors;
+      size = 32;
     };
   };
   
