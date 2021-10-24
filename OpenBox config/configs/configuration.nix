@@ -51,15 +51,55 @@
     keyMap = "es";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
+    desktopManager.xterm.enable = false;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+    # Setup window manager.
+    windowManager.openbox.enable = true;
 
-  # Make sure Xserver uses the amdgpu driver.
-  services.xserver.videoDrivers = [ "amdgpu" ];
+    # Setup display manager.
+    displayManager = {
+      defaultSession = "none+openbox";
+        lightdm = {
+          enable = true;
+          # background = # option is broken in NixOS 21.05
+          greeters.gtk = {
+            indicators = [ "~spacer" "~clock" "~spacer" "~power" ];
+            theme = {
+              name = "Lounge-night";
+              package = pkgs.lounge-gtk-theme ;
+            };
+            iconTheme = {
+              name = "Faba";
+              package = pkgs.faba-icon-theme ;
+            };
+            cursorTheme = {
+              name = "capitaine-cursors";
+              package = pkgs.capitaine-cursors ;
+              size = 32;
+            }; 
+          };
+        };
+    };
+   
+    # Make sure Xserver uses the amdgpu driver.
+    videoDrivers = [ "amdgpu" ];
+  }; 
+
+  # Enable some services and programs needed to run a minimal window manager like openbox.
+  services = {
+    # Enable GNOME Keyring daemon.
+    gnome.gnome-keyring.enable = true;
+    # Enable GVfs, a userspace virtual filesystem.
+    gvfs.enable = true;
+  };
+  
+  # Auto-detects the connected display hardware and loads the appropriate X11 setup using xrandr.
+  # services.autorandr.enable = true;
+
+  # Needed in order to theme gtk with home-manager.
+  programs.dconf.enable = true;
 
   # Enable OpenCL.
   hardware.opengl.extraPackages = with pkgs; [
@@ -95,26 +135,19 @@
   nixpkgs.config.allowUnfree = true;
 
   # Enable home-manager.
-  environment.systemPackages = with pkgs; [ 
-    wget
-    gparted
-    xclip
-    xorg.xkill
-    ffmpeg
-  ];
+  environment.systemPackages = with pkgs; [ home-manager etcher ];
 
   # Enable and install Steam.
-  # programs.steam.enable = true; 
+  programs.steam.enable = true; 
 
-  # Enable OpenSSH.
+    # Enable OpenSSH.
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
 
   # Garbage collection.
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 15d";
-  systemd.timers.nix-gc.timerConfig.Persistent = true;   
+  systemd.timers.nix-gc.timerConfig.Persistent = true;
 
-  system.stateVersion = "21.05";
+  system.stateVersion = "21.05"; 
 }
-
