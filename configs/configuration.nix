@@ -10,9 +10,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Kernel parameters.
-  # boot.kernelParams = [ ];
-
   # Enable NTFS support.
   boot.supportedFilesystems = [ "ntfs" ];
 
@@ -24,12 +21,6 @@
 
   # Upadte microcode.
   hardware.cpu.amd.updateMicrocode = true;  
-  
-  # Enable all firmware.
-  # hardware.enableAllFirmware = true;
-
-  # Enable all the redistributable firmware
-  # hardware.enableRedistributableFirmware = true;
 
   # Load the correct gpu driver right away.
   boot.initrd.kernelModules = [ "amdgpu" ]; 
@@ -101,6 +92,8 @@
     xclip
     xorg.xkill
     ffmpeg
+    tilix
+    gnome.gnome-tweaks
   ];
 
   # Enable and install Steam.
