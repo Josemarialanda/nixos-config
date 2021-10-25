@@ -67,12 +67,29 @@
     boxes
     cowsay
     asciiquarium
-    figlet    
+    figlet
+    htop
+    pfetch
+    stress-ng
+    s-tui
+
+    # Cursor themes
+    bibata-cursors
+
+    # GTK/Shell themes
+
+    # Icon themes
+    papirus-icon-theme
+
+    # Gnome extensions
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.just-perfection
+
   ];
 
   # Modules
   programs = {
-
+        
     # Configure git
     git = {
       enable = true;
@@ -113,12 +130,17 @@
       
       # Shell aliases
       shellAliases = {
+
+        # Variations of ls
         ll = "ls -l";
+        lo = "ls -o";
+        lh = "ls -lh";
+        la = "ls -la";
 
         # confirm before overwriting something
-        cp = "cp -i";
-        mv = "mv -i";
-        rm = "rm -i";
+        "cp" = "cp -i";
+        "mv" = "mv -i";
+        "rm" = "rm -i";
 
         # git
         addup = "git add -u";
@@ -130,25 +152,45 @@
 	fetch = "git fetch";
 	pull = "git pull origin";
 	push = "git push origin";
-	stat = "git status";  # 'status' is protected name so using 'stat' instead
+	stat = "git status";
 	tag = "git tag";
 	newtag = "git tag -a";
       
         # get error messages from journalctl
         jctl = "journalctl -p 3 -xb";
+         
+        # Disk space information
+        diskspace = "du -S | sort -n -r |more";
+    
+        # Show the size (sorted) of the folders in this directory
+        folders = "find . -maxdepth 1 -type d -print | xargs du -sk | sort -rn";
+    
+        # Aliases for moving up directories
+        ".." = "cd ..";
+        "..." = "cd ../..";
+        "...." = "cd ../../..";
+        "....." = "cd ../../../..";
+     
+        home = "cd ~/";        
       };
       
       # Bash config file
-      bashrcExtra = ''
+      bashrcExtra = ''                 
         
       '';
       
       # Commands that should be run when initializing an interactive shell
       initExtra = ''
-        cowsay MOO | lolcat 
+        cowthink "MOO?" | lolcat 
       '';
     };
   };
+
+  # Dracula color scheme for tilix
+  home.file.".config/tilix/schemes/Dracula.json".source = themes/tilix/Dracula.json;
+  
+  # Dracula color scheme for gedit
+  home.file.".local/share/gedit/styles/dracula.xml".source = themes/gedit/dracula.xml;
 
   home.stateVersion = "21.05";
 }

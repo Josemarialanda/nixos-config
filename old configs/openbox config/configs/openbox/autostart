@@ -1,9 +1,0 @@
-# xrandr -s 2560x1080 -r 75 &
-# Not sure if this or compositing is a better option?
-# xrandr --output DisplayPort-0 --set TearFree on &
-
-
-xrandr -r 75 &
-nitrogen --restore &
-xsettingsd &
-tint2 &
