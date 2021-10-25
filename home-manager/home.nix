@@ -69,6 +69,7 @@
     asciiquarium
     figlet
     htop
+    thefuck
     pfetch
     stress-ng
     s-tui
@@ -171,12 +172,43 @@
         "...." = "cd ../../..";
         "....." = "cd ../../../..";
      
-        home = "cd ~/";        
+        home = "~/";
+
+        # NixOS aliases
+        nixos-config = "sudo nano /etc/nixos/configuration.nix";
+        nixos-sync-now = "sudo nixos-rebuild switch";  
+        nixos-sync-boot = "sudo nixos-rebuild boot";      
+        nixos-undo = "nixos-rebuild switch --rollback";
+        nixos-update = "sudo nix-channel --update"; # nixos-update <channel-alias> updates only one channel
+        nixos-update-undo = "nix-channel --rollback";
+        nixos-channels = "nix-channel --list";
+        nixos-channel-add = "nix-channel --add";
+        nixos-channel-remove = "nix-channel --remove";
+        nixos-generations = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
+        nixos-clean = "sudo nix-collect-garbage -d"; # system cleanup
+        nixos-optimise = "nix-store --optimise";
+
+        # home-manager aliases
+        home-config = "home-manager edit";
+        home-sync = "home-manager switch";
+        home-generations = "home-manager generations";
+        home-remove-generation = "home-manager remove-generations";
+        home-list = "home-manager packages";
+
+        # nix-env aliases
+        nix-install = "nix-env -i";
+        nix-search = "nix search";
+        nix-undo = "nix-env --rollback";
+        nix-generations = "nix-env --list-generations";
+        nix-upgrade = "nix-env -u";
+        nix-remove = "nix-env -e";
+        nix-list = "nix-env --query";
+        nix-clean = "nix-collect-garbage -d"; # user specific cleanup         
       };
       
       # Bash config file
       bashrcExtra = ''                 
-        
+        eval "$(thefuck --alias)"  
       '';
       
       # Commands that should be run when initializing an interactive shell

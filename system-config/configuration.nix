@@ -103,10 +103,16 @@
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
 
-  # Garbage collection.
-  nix.gc.automatic = true;
-  nix.gc.options = "--delete-older-than 15d";
-  systemd.timers.nix-gc.timerConfig.Persistent = true;   
+  # Automatic garbage collection and optimisation for newer derivations.
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+    autoOptimiseStore = true;
+  };
+  
 
   system.stateVersion = "21.05";
 }
