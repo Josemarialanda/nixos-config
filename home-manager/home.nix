@@ -5,7 +5,7 @@
 
   home.username = "jose";
   home.homeDirectory = "/home/jose";
-  
+
   home.packages = let
 
   # Python packages
@@ -53,6 +53,7 @@
 
     # Media
     spotify
+    simplescreenrecorder
 
     # Office
     texstudio
@@ -124,11 +125,6 @@
     bash = {
       enable = true;
       
-      # Session variables
-      sessionVariables = {
-        TEST = 10;
-      };
-      
       # Shell aliases
       shellAliases = {
 
@@ -172,10 +168,10 @@
         "...." = "cd ../../..";
         "....." = "cd ../../../..";
      
-        home = "~/";
+        home = "~";
 
         # NixOS aliases
-        nixos-config = "sudo nano /etc/nixos/configuration.nix";
+        nixos-config = "sudo $EDITOR /etc/nixos/configuration.nix";
         nixos-sync-now = "sudo nixos-rebuild switch";  
         nixos-sync-boot = "sudo nixos-rebuild boot";      
         nixos-undo = "nixos-rebuild switch --rollback";
@@ -207,7 +203,11 @@
       };
       
       # Bash config file
-      bashrcExtra = ''                 
+      bashrcExtra = ''
+        # set kakoune as default text editor
+        export EDITOR='kak'
+        export VISUAL='kak'
+        # enable thefuck
         eval "$(thefuck --alias)"  
       '';
       
@@ -216,6 +216,41 @@
         cowthink "MOO?" | lolcat 
       '';
     };
+
+    kakoune = {
+      enable = true;
+      config = {
+        alignWithTabs = true;
+        autoComplete = [ "insert" "prompt" ];
+        autoInfo = [ "command" "onkey" ];
+        autoReload = "ask";
+        colorScheme = "dracula";
+        indentWidth = 0;
+        numberLines = {
+          enable = true;
+          highlightCursor = true;
+          separator = "|";
+        };
+        ui = {
+          enableMouse = true;
+          assistant = "dilbert";
+          setTitle = true;
+        };
+        wrapLines = {
+          enable = true;
+          indent = true;
+          marker = "⏎";
+        };
+      };
+      plugins = [ 
+        pkgs.kakounePlugins.powerline-kak
+        pkgs.kakounePlugins.kakoune-rainbow
+        pkgs.kakounePlugins.kakoune-vertical-selection
+      ];
+      extraConfig = ''
+        set-face global Default rgb:f8f8f2,default
+      '';
+    };  
   };
 
   # Dracula color scheme for tilix
@@ -223,6 +258,9 @@
   
   # Dracula color scheme for gedit
   home.file.".local/share/gedit/styles/dracula.xml".source = themes/gedit/dracula.xml;
+  
+  # Dracula color scheme for kakoune
+  home.file.".config/kak/colors/dracula.kak".source = themes/kakoune/dracula.kak;
 
   home.stateVersion = "21.05";
 }
