@@ -5,7 +5,7 @@
 
   home.username = "jose";
   home.homeDirectory = "/home/jose";
-
+ 
   home.packages = let
 
   # Python packages
@@ -74,23 +74,21 @@
     pfetch
     stress-ng
     s-tui
+    tree
 
     # Cursor themes
     bibata-cursors
 
-    # GTK/Shell themes
-
     # Icon themes
     papirus-icon-theme
-
-    # Gnome extensions
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.just-perfection
 
   ];
 
   # Modules
   programs = {
+
+    # Install the Java development kit and set the JAVA_HOME variable.
+    java.enable = true;
         
     # Configure git
     git = {
@@ -167,19 +165,17 @@
         "..." = "cd ../..";
         "...." = "cd ../../..";
         "....." = "cd ../../../..";
-     
-        home = "~";
 
         # NixOS aliases
         nixos-config = "sudo $EDITOR /etc/nixos/configuration.nix";
         nixos-sync-now = "sudo nixos-rebuild switch";  
         nixos-sync-boot = "sudo nixos-rebuild boot";      
-        nixos-undo = "nixos-rebuild switch --rollback";
+        nixos-undo = "sudo nixos-rebuild switch --rollback";
         nixos-update = "sudo nix-channel --update"; # nixos-update <channel-alias> updates only one channel
-        nixos-update-undo = "nix-channel --rollback";
-        nixos-channels = "nix-channel --list";
-        nixos-channel-add = "nix-channel --add";
-        nixos-channel-remove = "nix-channel --remove";
+        nixos-update-undo = "sudo nix-channel --rollback";
+        nixos-channels = "sudo nix-channel --list";
+        nixos-channel-add = "sudo nix-channel --add";
+        nixos-channel-remove = "sudo nix-channel --remove";
         nixos-generations = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
         nixos-clean = "sudo nix-collect-garbage -d"; # system cleanup
         nixos-optimise = "nix-store --optimise";
@@ -204,10 +200,8 @@
       
       # Bash config file
       bashrcExtra = ''
-        # set kakoune as default text editor
         export EDITOR='kak'
         export VISUAL='kak'
-        # enable thefuck
         eval "$(thefuck --alias)"  
       '';
       
@@ -215,6 +209,7 @@
       initExtra = ''
         cowthink "MOO?" | lolcat 
       '';
+
     };
 
     kakoune = {
