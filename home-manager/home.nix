@@ -19,9 +19,9 @@
     seaborn
     scikitlearn
     tabulate
+    anytree
     ipykernel
     setuptools
-    ipywidgets
     ];
 
   in with pkgs; [
@@ -37,19 +37,18 @@
     rustup                                # Rust
     julia-stable                          # Julia 
     (python3.withPackages pythonPackages) # Python
-
+    
     # Programming and editors
     gnumake
+    cmake
     valgrind
     maven
-    llvm
-    bison
-    flex
     vscode
 
     # Internet
-    google-chrome
+    chromium
     transmission-gtk
+    zoom-us
 
     # Media
     spotify
@@ -63,18 +62,12 @@
     retext
 
     # CLI apps
-    lolcat
-    fortune
-    boxes
-    cowsay
-    asciiquarium
-    figlet
     htop
-    thefuck
     pfetch
     stress-ng
     s-tui
-    tree
+    mprime
+    lm_sensors
 
     # Cursor themes
     bibata-cursors
@@ -201,13 +194,12 @@
       # Bash config file
       bashrcExtra = ''
         export EDITOR='kak'
-        export VISUAL='kak'
-        eval "$(thefuck --alias)"  
+        export VISUAL='kak'  
       '';
       
       # Commands that should be run when initializing an interactive shell
       initExtra = ''
-        cowthink "MOO?" | lolcat 
+         
       '';
 
     };
@@ -215,6 +207,7 @@
     kakoune = {
       enable = true;
       config = {
+	tabStop = 2;
         alignWithTabs = true;
         autoComplete = [ "insert" "prompt" ];
         autoInfo = [ "command" "onkey" ];

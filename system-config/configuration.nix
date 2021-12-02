@@ -16,21 +16,20 @@
   # Use the zen performance kernel.
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  # Kernel module for motherboard sensors.
-  boot.kernelModules = [ "kvm-amd" "nct6775" ];
-
   # Upadte microcode.
   hardware.cpu.amd.updateMicrocode = true;  
 
   # Load the correct gpu driver right away.
-  boot.initrd.kernelModules = [ "amdgpu" ]; 
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   # Setup networking.
   networking.hostName = "nixos";
-  networking.networkmanager.enable = true; 
-  networking.useDHCP = false;
-  networking.interfaces.enp8s0.useDHCP = true;
-  networking.interfaces.wlp7s0.useDHCP = true;
+  networking.networkmanager.enable = true;
+
+  # Doing the following is discouraged (but it works for me hehe)
+  # networking.useDHCP = false;
+  # networking.interfaces.enp8s0.useDHCP = true;
+  # networking.interfaces.wlp7s0.useDHCP = true;
 
   # Set time zone.
   time.timeZone = "America/Mexico_City";
@@ -116,4 +115,3 @@
 
   system.stateVersion = "21.05";
 }
-
