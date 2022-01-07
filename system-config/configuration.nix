@@ -1,3 +1,7 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
 { config, pkgs, ... }:
 
 {
@@ -10,27 +14,37 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Enable some kernel modules.
+  boot.kernelModules = [ "kvm-amd" "nct6775" ];
+
+  # Enable temperature readings.
+  environment.etc = {
+    "sysconfig/lm_sensors".text = ''
+      HWMON_MODULES="nct6775"
+    '';
+  };
+
   # Enable NTFS support.
   boot.supportedFilesystems = [ "ntfs" ];
 
-  # Use the zen performance kernel.
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # Use the latest kernel.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Kernel module for motherboard sensors.
-  boot.kernelModules = [ "kvm-amd" "nct6775" ];
+  # Upadate microcode.
+  hardware.cpu.amd.updateMicrocode = true;
 
-  # Upadte microcode.
-  hardware.cpu.amd.updateMicrocode = true;  
+  # Enable SSD TRIM support.
+  services.fstrim.enable = true;
 
   # Load the correct gpu driver right away.
-  boot.initrd.kernelModules = [ "amdgpu" ]; 
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   # Setup networking.
-  networking.hostName = "nixos";
-  networking.networkmanager.enable = true; 
   networking.useDHCP = false;
-  networking.interfaces.enp8s0.useDHCP = true;
-  networking.interfaces.wlp7s0.useDHCP = true;
+  networking.interfaces.enp4s0.useDHCP = true;
+  networking.interfaces.wlp3s0.useDHCP = true;
+  networking.hostName = "nixos";
+  networking.networkmanager.enable = true;
 
   # Set time zone.
   time.timeZone = "America/Mexico_City";
@@ -60,6 +74,7 @@
 
   # Enable Vulkan.
   hardware.opengl.driSupport = true;
+  
   # For 32 bit applications.
   hardware.opengl.driSupport32Bit = true;
 
@@ -96,6 +111,12 @@
     gnome.gnome-tweaks
   ];
 
+  # Setup the IOHK binary caches to build Plutus.
+  nix = {
+     binaryCaches          = [ "https://hydra.iohk.io" "https://iohk.cachix.org" ];
+     binaryCachePublicKeys = [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo=" ];
+  };
+
   # Enable and install Steam.
   # programs.steam.enable = true; 
 
@@ -112,8 +133,7 @@
     };
     autoOptimiseStore = true;
   };
-  
 
-  system.stateVersion = "21.05";
+  system.stateVersion = "21.11";
+
 }
-

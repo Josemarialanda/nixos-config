@@ -8,6 +8,10 @@
  
   home.packages = let
 
+  j = pkgs.j.overrideAttrs(oldAttrs: {
+	  meta.priority = 1;
+  });
+
   # Python packages
   pythonPackages = pkgs: with pkgs; [
     numpy
@@ -19,37 +23,37 @@
     seaborn
     scikitlearn
     tabulate
+    anytree
     ipykernel
     setuptools
-    ipywidgets
     ];
 
   in with pkgs; [
 
     # Compilers
     stack                                 # Haskell
-    jdk                                   # Java
     gcc                                   # GNU compiler collection
     idris2                                # Idris
     clean                                 # Clean
     clisp                                 # Common lisp
     gforth                                # GNU Forth
     rustup                                # Rust
-    julia-stable                          # Julia 
+    j                                     # The J array programming language
     (python3.withPackages pythonPackages) # Python
-
+    
     # Programming and editors
     gnumake
+    cmake
     valgrind
     maven
-    llvm
-    bison
-    flex
     vscode
+    haskellPackages.OpenGLRaw
 
     # Internet
-    google-chrome
+    chromium
     transmission-gtk
+    zoom-us
+    discord
 
     # Media
     spotify
@@ -61,20 +65,16 @@
     lyx
     pandoc
     retext
+    tikzit
 
     # CLI apps
-    lolcat
-    fortune
-    boxes
-    cowsay
-    asciiquarium
-    figlet
     htop
-    thefuck
     pfetch
     stress-ng
     s-tui
-    tree
+    mprime
+    lm_sensors
+    dmidecode
 
     # Cursor themes
     bibata-cursors
@@ -82,6 +82,8 @@
     # Icon themes
     papirus-icon-theme
 
+    # Other
+    ventoy-bin
   ];
 
   # Modules
@@ -141,15 +143,15 @@
         addup = "git add -u";
         addall = "git add .";
         branch = "git branch";
-	checkout = "git checkout";
-	clone = "git clone";
-	commit = "git commit -m";
-	fetch = "git fetch";
-	pull = "git pull origin";
-	push = "git push origin";
-	stat = "git status";
-	tag = "git tag";
-	newtag = "git tag -a";
+	      checkout = "git checkout";
+	      clone = "git clone";
+	      commit = "git commit -m";
+	      fetch = "git fetch";
+	      pull = "git pull origin";
+	      push = "git push origin";
+	      stat = "git status";
+	      tag = "git tag";
+	      newtag = "git tag -a";
       
         # get error messages from journalctl
         jctl = "journalctl -p 3 -xb";
@@ -201,13 +203,12 @@
       # Bash config file
       bashrcExtra = ''
         export EDITOR='kak'
-        export VISUAL='kak'
-        eval "$(thefuck --alias)"  
+        export VISUAL='kak'  
       '';
       
       # Commands that should be run when initializing an interactive shell
       initExtra = ''
-        cowthink "MOO?" | lolcat 
+         
       '';
 
     };
@@ -215,37 +216,38 @@
     kakoune = {
       enable = true;
       config = {
-        alignWithTabs = true;
-        autoComplete = [ "insert" "prompt" ];
-        autoInfo = [ "command" "onkey" ];
-        autoReload = "ask";
-        colorScheme = "dracula";
-        indentWidth = 0;
-        numberLines = {
-          enable = true;
-          highlightCursor = true;
-          separator = "|";
-        };
-        ui = {
-          enableMouse = true;
-          assistant = "dilbert";
-          setTitle = true;
-        };
-        wrapLines = {
-          enable = true;
-          indent = true;
-          marker = "⏎";
-        };
+	    tabStop = 2;
+      alignWithTabs = true;
+      autoComplete = [ "insert" "prompt" ];
+      autoInfo = [ "command" "onkey" ];
+      autoReload = "ask";
+      colorScheme = "dracula";
+      indentWidth = 0;
+      numberLines = {
+        enable = true;
+        highlightCursor = true;
+        separator = "|";
       };
-      plugins = [ 
-        pkgs.kakounePlugins.powerline-kak
-        pkgs.kakounePlugins.kakoune-rainbow
-        pkgs.kakounePlugins.kakoune-vertical-selection
-      ];
-      extraConfig = ''
-        set-face global Default rgb:f8f8f2,default
-      '';
-    };  
+      ui = {
+        enableMouse = true;
+        assistant = "dilbert";
+        setTitle = true;
+      };
+      wrapLines = {
+        enable = true;
+        indent = true;
+        marker = "⏎";
+      };
+    };
+    plugins = [ 
+      pkgs.kakounePlugins.powerline-kak
+      pkgs.kakounePlugins.kakoune-rainbow
+      pkgs.kakounePlugins.kakoune-vertical-selection
+    ];
+    extraConfig = ''
+      set-face global Default rgb:f8f8f2,default
+    '';
+    };
   };
 
   # Dracula color scheme for tilix
@@ -257,5 +259,5 @@
   # Dracula color scheme for kakoune
   home.file.".config/kak/colors/dracula.kak".source = themes/kakoune/dracula.kak;
 
-  home.stateVersion = "21.05";
+  home.stateVersion = "21.11";
 }
