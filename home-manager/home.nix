@@ -7,7 +7,7 @@
   home.homeDirectory = "/home/jose";
  
   home.packages = let
-
+  
   j = pkgs.j.overrideAttrs(oldAttrs: {
 	  meta.priority = 1;
   });
@@ -20,6 +20,7 @@
     matplotlib
     scipy
     sympy
+    networkx
     seaborn
     scikitlearn
     tabulate
@@ -31,7 +32,7 @@
   in with pkgs; [
 
     # Compilers
-    stack                                 # Haskell
+    ghc                                   # The Glasgow Haskell Compiler
     gcc                                   # GNU compiler collection
     idris2                                # Idris
     clean                                 # Clean
@@ -45,15 +46,16 @@
     gnumake
     cmake
     valgrind
-    maven
     vscode
-    haskellPackages.OpenGLRaw
+    binutils
 
     # Internet
     chromium
     transmission-gtk
     zoom-us
     discord
+    slack
+    ledger-live-desktop
 
     # Media
     spotify
@@ -64,9 +66,12 @@
     texlive.combined.scheme-full
     lyx
     pandoc
-    retext
-    tikzit
-
+    marktext
+    apostrophe
+    cherrytree
+    gaphor
+    xournalpp
+    
     # CLI apps
     htop
     pfetch
@@ -75,15 +80,24 @@
     mprime
     lm_sensors
     dmidecode
-
-    # Cursor themes
-    bibata-cursors
-
-    # Icon themes
-    papirus-icon-theme
+    appimage-run
+    cachix
+    jq
+    killall
+    file
+    dpkg
+    patchelf
+    steam-run
+    with-shell
+    bottom
+    trash-cli
 
     # Other
     ventoy-bin
+    cabal2nix
+    cabal-install
+    nix-prefetch-git
+    pgadmin
   ];
 
   # Modules
@@ -252,9 +266,6 @@
 
   # Dracula color scheme for tilix
   home.file.".config/tilix/schemes/Dracula.json".source = themes/tilix/Dracula.json;
-  
-  # Dracula color scheme for gedit
-  home.file.".local/share/gedit/styles/dracula.xml".source = themes/gedit/dracula.xml;
   
   # Dracula color scheme for kakoune
   home.file.".config/kak/colors/dracula.kak".source = themes/kakoune/dracula.kak;

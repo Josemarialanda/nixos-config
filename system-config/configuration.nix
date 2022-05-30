@@ -63,6 +63,23 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_11;
+    port   = 5432;
+    enableTCPIP = true;
+    authentication = pkgs.lib.mkOverride 10 ''
+      local all all trust
+      host all all 127.0.0.1/32 trust
+      host all all ::1/128 trust
+     '';
+     initialScript = pkgs.writeText "backend-initScript" ''
+       CREATE ROLE lendbot WITH LOGIN PASSWORD 'lendbot' CREATEDB;
+       CREATE DATABASE ogmios-datum-cache;
+       GRANT ALL PRIVILEGES ON DATABASE ogmios-datum-cache TO lendbot;
+     '';
+  };
+
   # Make sure Xserver uses the amdgpu driver.
   services.xserver.videoDrivers = [ "amdgpu" ];
 
@@ -94,8 +111,8 @@
   # User accounts.
   users.users.jose = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager"];
-  };  
+    extraGroups = [ "wheel" "networkmanager" ];
+  };
 
   # Allow unfree software.
   nixpkgs.config.allowUnfree = true;
@@ -111,28 +128,42 @@
     gnome.gnome-tweaks
   ];
 
-  # Setup the IOHK binary caches to build Plutus.
+  # Enable udev rules for Ledger devices.
+  hardware.ledger.enable = true;
+
   nix = {
+     # Setup IOHK binary caches.
      binaryCaches          = [ "https://hydra.iohk.io" "https://iohk.cachix.org" ];
      binaryCachePublicKeys = [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo=" ];
+
+     # Enable flakes.
+     package = pkgs.nixUnstable;
+     extraOptions = ''
+       experimental-features = nix-command flakes
+     '';
+     settings.substituters        = [ "https://public-plutonomicon.cachix.org https://hydra.iohk.io https://iohk.cachix.org https://cache.nixos.org/" ];
+     settings.trusted-public-keys = [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= public-plutonomicon.cachix.org-1:3AKJMhCLn32gri1drGuaZmFrmnue+KkKrhhubQk/CWc=" ];
+
+     trustedUsers = [ "jose" ];
   };
 
   # Enable and install Steam.
-  # programs.steam.enable = true; 
+  # programs.steam.enable = true;
 
   # Enable OpenSSH.
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
+  programs.ssh.startAgent = true;
 
   # Automatic garbage collection and optimisation for newer derivations.
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
-    autoOptimiseStore = true;
-  };
+  # nix = {
+  #  gc = {
+  #    automatic = true;
+  #    dates = "weekly";
+  #    options = "--delete-older-than 30d";
+  #  };
+  #  autoOptimiseStore = true;
+  # };
 
   system.stateVersion = "21.11";
 
