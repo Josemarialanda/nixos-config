@@ -46,6 +46,10 @@
     gnumake
     cmake
     valgrind
+<<<<<<< HEAD
+=======
+    maven
+>>>>>>> d26bac3467f1f004c84ab426a2c161424177e13e
     vscode
     binutils
 
@@ -53,9 +57,12 @@
     chromium
     transmission-gtk
     zoom-us
+<<<<<<< HEAD
     discord
     slack
     ledger-live-desktop
+=======
+>>>>>>> d26bac3467f1f004c84ab426a2c161424177e13e
 
     # Media
     spotify
@@ -79,6 +86,7 @@
     s-tui
     mprime
     lm_sensors
+<<<<<<< HEAD
     dmidecode
     appimage-run
     cachix
@@ -91,6 +99,14 @@
     with-shell
     bottom
     trash-cli
+=======
+
+    # Cursor themes
+    bibata-cursors
+
+    # Icon themes
+    papirus-icon-theme
+>>>>>>> d26bac3467f1f004c84ab426a2c161424177e13e
 
     # Other
     ventoy-bin
@@ -230,6 +246,7 @@
     kakoune = {
       enable = true;
       config = {
+<<<<<<< HEAD
 	    tabStop = 2;
       alignWithTabs = true;
       autoComplete = [ "insert" "prompt" ];
@@ -241,6 +258,30 @@
         enable = true;
         highlightCursor = true;
         separator = "|";
+=======
+	tabStop = 2;
+        alignWithTabs = true;
+        autoComplete = [ "insert" "prompt" ];
+        autoInfo = [ "command" "onkey" ];
+        autoReload = "ask";
+        colorScheme = "dracula";
+        indentWidth = 0;
+        numberLines = {
+          enable = true;
+          highlightCursor = true;
+          separator = "|";
+        };
+        ui = {
+          enableMouse = true;
+          assistant = "dilbert";
+          setTitle = true;
+        };
+        wrapLines = {
+          enable = true;
+          indent = true;
+          marker = "⏎";
+        };
+>>>>>>> d26bac3467f1f004c84ab426a2c161424177e13e
       };
       ui = {
         enableMouse = true;

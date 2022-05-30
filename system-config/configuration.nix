@@ -30,21 +30,36 @@
   # Use the latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+<<<<<<< HEAD
   # Upadate microcode.
   hardware.cpu.amd.updateMicrocode = true;
 
   # Enable SSD TRIM support.
   services.fstrim.enable = true;
+=======
+  # Upadte microcode.
+  hardware.cpu.amd.updateMicrocode = true;  
+>>>>>>> d26bac3467f1f004c84ab426a2c161424177e13e
 
   # Load the correct gpu driver right away.
   boot.initrd.kernelModules = [ "amdgpu" ];
 
   # Setup networking.
+<<<<<<< HEAD
   networking.useDHCP = false;
   networking.interfaces.enp4s0.useDHCP = true;
   networking.interfaces.wlp3s0.useDHCP = true;
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
+=======
+  networking.hostName = "nixos";
+  networking.networkmanager.enable = true;
+
+  # Doing the following is discouraged (but it works for me hehe)
+  # networking.useDHCP = false;
+  # networking.interfaces.enp8s0.useDHCP = true;
+  # networking.interfaces.wlp7s0.useDHCP = true;
+>>>>>>> d26bac3467f1f004c84ab426a2c161424177e13e
 
   # Set time zone.
   time.timeZone = "America/Mexico_City";
