@@ -1,69 +1,20 @@
 { config, pkgs, ... }:
 
 {
+  home.username = "nixos";
+  home.homeDirectory = "/home/nixos";
+  home.stateVersion = "22.05";
   programs.home-manager.enable = true;
 
-  home.username = "jose";
-  home.homeDirectory = "/home/jose";
- 
-  home.packages = let
-  
-  j = pkgs.j.overrideAttrs(oldAttrs: {
-	  meta.priority = 1;
-  });
+  home.packages = with pkgs; [
 
-  # Python packages
-  pythonPackages = pkgs: with pkgs; [
-    numpy
-    pylint
-    pandas
-    matplotlib
-    scipy
-    sympy
-    networkx
-    seaborn
-    scikitlearn
-    tabulate
-    anytree
-    ipykernel
-    setuptools
-    ];
-
-  in with pkgs; [
-
-    # Compilers
-    ghc                                   # The Glasgow Haskell Compiler
-    gcc                                   # GNU compiler collection
-    idris2                                # Idris
-    clean                                 # Clean
-    clisp                                 # Common lisp
-    gforth                                # GNU Forth
-    rustup                                # Rust
-    j                                     # The J array programming language
-    (python3.withPackages pythonPackages) # Python
-    
-    # Programming and editors
-    gnumake
-    cmake
-    valgrind
-<<<<<<< HEAD
-=======
-    maven
->>>>>>> d26bac3467f1f004c84ab426a2c161424177e13e
+    # Text and code editors.
     vscode
-    binutils
 
     # Internet
-    chromium
-    transmission-gtk
-    zoom-us
-<<<<<<< HEAD
-    discord
-    slack
-    ledger-live-desktop
-=======
->>>>>>> d26bac3467f1f004c84ab426a2c161424177e13e
-
+    google-chrome
+    fragments
+   
     # Media
     spotify
     simplescreenrecorder
@@ -73,47 +24,15 @@
     texlive.combined.scheme-full
     lyx
     pandoc
-    marktext
-    apostrophe
-    cherrytree
-    gaphor
-    xournalpp
-    
+
     # CLI apps
     htop
     pfetch
     stress-ng
     s-tui
     mprime
-    lm_sensors
-<<<<<<< HEAD
     dmidecode
-    appimage-run
-    cachix
-    jq
-    killall
-    file
-    dpkg
-    patchelf
-    steam-run
-    with-shell
-    bottom
-    trash-cli
-=======
-
-    # Cursor themes
-    bibata-cursors
-
-    # Icon themes
-    papirus-icon-theme
->>>>>>> d26bac3467f1f004c84ab426a2c161424177e13e
-
-    # Other
     ventoy-bin
-    cabal2nix
-    cabal-install
-    nix-prefetch-git
-    pgadmin
   ];
 
   # Modules
@@ -121,16 +40,13 @@
 
     # Install the Java development kit and set the JAVA_HOME variable.
     java.enable = true;
-        
+
     # Configure git
     git = {
       enable = true;
       userName = "josemarialanda";
       userEmail = "josemaria.landa@gmail.com";
     };
-
-    # Enable lazygit git cli interface
-    lazygit.enable = true;
 
     # Enable bat: a better cat
     bat = {
@@ -154,7 +70,7 @@
     # Bash configuration
     bash = {
       enable = true;
-      
+
       # Shell aliases
       shellAliases = {
 
@@ -182,7 +98,7 @@
 	      stat = "git status";
 	      tag = "git tag";
 	      newtag = "git tag -a";
-      
+
         # get error messages from journalctl
         jctl = "journalctl -p 3 -xb";
          
@@ -191,7 +107,7 @@
     
         # Show the size (sorted) of the folders in this directory
         folders = "find . -maxdepth 1 -type d -print | xargs du -sk | sort -rn";
-    
+
         # Aliases for moving up directories
         ".." = "cd ..";
         "..." = "cd ../..";
@@ -229,7 +145,7 @@
         nix-list = "nix-env --query";
         nix-clean = "nix-collect-garbage -d"; # user specific cleanup         
       };
-      
+
       # Bash config file
       bashrcExtra = ''
         export EDITOR='kak'
@@ -240,13 +156,11 @@
       initExtra = ''
          
       '';
-
     };
 
     kakoune = {
       enable = true;
       config = {
-<<<<<<< HEAD
 	    tabStop = 2;
       alignWithTabs = true;
       autoComplete = [ "insert" "prompt" ];
@@ -258,30 +172,6 @@
         enable = true;
         highlightCursor = true;
         separator = "|";
-=======
-	tabStop = 2;
-        alignWithTabs = true;
-        autoComplete = [ "insert" "prompt" ];
-        autoInfo = [ "command" "onkey" ];
-        autoReload = "ask";
-        colorScheme = "dracula";
-        indentWidth = 0;
-        numberLines = {
-          enable = true;
-          highlightCursor = true;
-          separator = "|";
-        };
-        ui = {
-          enableMouse = true;
-          assistant = "dilbert";
-          setTitle = true;
-        };
-        wrapLines = {
-          enable = true;
-          indent = true;
-          marker = "⏎";
-        };
->>>>>>> d26bac3467f1f004c84ab426a2c161424177e13e
       };
       ui = {
         enableMouse = true;
@@ -311,5 +201,4 @@
   # Dracula color scheme for kakoune
   home.file.".config/kak/colors/dracula.kak".source = themes/kakoune/dracula.kak;
 
-  home.stateVersion = "21.11";
 }
